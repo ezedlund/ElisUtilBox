@@ -39,33 +39,13 @@ Mage = "\033[1;35m"
 Cy = "\033[1;36m"
 Wh = "\033[1;37m"
 
-# random
+# toggles
+kill_spotify = False
+kill_discord = False
+kill_steam = False
+
+# random seed
 random.seed(version=2)
-
-
-def print_credits():
-    """Print credits"""
-    cred_strings = [
-        r"      ___           ___              ",
-        r"     /  /\         /  /\       ___   ",
-        r"    /  /::\       /  /:/      /__/\  ",
-        r"   /  /:/\:\     /  /:/       \__\:\ ",
-        r"  /  /::\ \:\   /  /:/        /  /::\ ",
-        r" /__/:/\:\ \:\ /__/:/      __/  /:/\/ ",
-        r" \  \:\ \:\_\/ \  \:\     /__/\/:/    ",
-        r"  \  \:\ \:\    \  \:\    \  \::/     ",
-        r"   \  \:\_\/     \  \:\    \  \:\     ",
-        r"    \  \:\        \  \:\    \__\/     ",
-        r"     \__\/         \__\/     ",
-        "Created by: Eli",
-        "aka 3li",
-        "https://github.com/ezedlund",
-        "# USE AT YOUR OWN RISK #",
-    ]
-    for line in cred_strings:
-        print(Cy + line + Wh)
-        sleep(random.uniform(0.1, 0.3))
-    sleep(1)
 
 
 def space_text(text):
@@ -172,6 +152,44 @@ def process_killer(process_list):
             kill_process(process)
     except Exception as err:
         print(f"Error: {err}")
+
+
+def print_credits():
+    """Print credits"""
+    # setup
+    cred_strings = [
+        r"      ___           ___              ",
+        r"     /  /\         /  /\       ___   ",
+        r"    /  /::\       /  /:/      /__/\  ",
+        r"   /  /:/\:\     /  /:/       \__\:\ ",
+        r"  /  /::\ \:\   /  /:/        /  /::\ ",
+        r" /__/:/\:\ \:\ /__/:/      __/  /:/\/ ",
+        r" \  \:\ \:\_\/ \  \:\     /__/\/:/    ",
+        r"  \  \:\ \:\    \  \:\    \  \::/     ",
+        r"   \  \:\_\/     \  \:\    \  \:\     ",
+        r"    \  \:\        \  \:\    \__\/     ",
+        r"     \__\/         \__\/     ",
+        "",
+        "Created by: Eli",
+        "aka 3li",
+        "https://github.com/ezedlund",
+        f"# USE AT YOUR OWN RISK {get_username().upper()}#",
+    ]
+    # print
+    for line in cred_strings:
+        # randomly color line
+        random_num = random.uniform(0.1, 0.2)
+        if random_num > 0.19:
+            print(f"{Cy}{line}{Wh}")
+        elif random_num > 0.18:
+            print(f"{Mage}{line}{Wh}")
+        elif random_num > 0.17:
+            print(f"{Ye}{line}{Wh}")
+        else:
+            print(f"{Gr}{line}{Wh}")
+        # randomly sleep sometime between 0.1 and 0.3
+        sleep(random.uniform(0.1, 0.3))
+    sleep(1)
 
 
 def print_menu_msg():
