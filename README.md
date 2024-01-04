@@ -1,9 +1,9 @@
 # Eli's Utility Box
 
-This project is a continuation of [this](https://github.com/ezedlund/Windows-Utility-Tool/tree/main).
-A Python program I made to kill annoying tasks at first.
-Now it's more of a toolbox.
-Requires [Python](https://www.python.org/downloads/) to work.
+This project is a continuation of [this](https://github.com/ezedlund/Windows-Utility-Tool/tree/main).</br>
+A Python program I made to kill annoying tasks at first.</br>
+Now it's more of a toolbox.</br>
+Requires [Python](https://www.python.org/downloads/) to work.</br>
 
 
 ## Currently added features
