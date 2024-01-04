@@ -85,7 +85,7 @@ def processes_setup():
         os.system("cls")
         if not "#" in line:
             print(f"{Gr}startup~# loading processes [{line[0]}]")
-            processes.append(line)
+            processes.append(line[1])
         time.sleep(0.01)
     os.system("cls")
     print(f"{Gr}startup~# finished [{line[0]}]")
