@@ -16,7 +16,7 @@ https://github.com/ezedlund/
 
 import os
 import subprocess
-from time import sleep
+import time
 import requests
 import json
 import random
@@ -24,9 +24,10 @@ import random
 from InquirerPy import inquirer
 
 
-VERSION = "EUB v1.0"
+VERSION = "EUB v1.1"
 """
-v1.0 12/29/2023
+v1.0 12/29/2023 'the initial'
+v1.1 01/04/2024 'the master list update'
 """
 
 # color codes
@@ -49,7 +50,9 @@ random.seed(version=2)
 
 
 def space_text(text):
-    """Add a space after each character of provided string"""
+    """
+    Add a space after each character of provided string
+    """
     new_text = ""
     for char in text:
         new_text += f"{char} "
@@ -57,7 +60,9 @@ def space_text(text):
 
 
 def get_username():
-    """Grab devices login name"""
+    """
+    Grab devices login name
+    """
     try:
         return str(os.getlogin())
     except:
@@ -65,62 +70,25 @@ def get_username():
 
 
 def processes_setup():
-    #####################
-    #       TODO        #
-    #####################
-    processes = [
-        # windows
-        "CompatTelRunner.exe",
-        "PhoneExperienceHost.exe",
-        "yourphoneserver.exe",
-        "yourphone.exe",
-        "mysqld.exe",
-        "msedge.exe",
-        # xbox
-        "xboxappservices.exe",
-        "gamebarpresencewriter.exe",
-        "gamebarftserver.exe",
-        "gamebar.exe",
-        "xboxapp.exe",
-        "XboxIdp.exe",
-        "XboxPCApp.exe",
-        "gamingservices.exe",
-        "gamingservicesnet.exe",
-        "gameinputsvc.exe",
-        "mysqld.exe",
-        "XboxPcAppFT.exe",
-        "XboxGameBarWidgets.exe",
-        # adobe
-        "CoreSync.exe",
-        "CCXProcess.exe",
-        "CCLibrary.exe",
-        "AdobeNotificationClient.exe",
-        "AdobeIPCBroker.exe",
-        "Adobe Desktop Service.exe",
-        "Adobe Crash Processor.exe",
-        "AdobeUpdateService.exe",
-        # oculos
-        "OculusClient.exe",
-        "OVRRedir.exe",
-        "OVRServer_x64.exe",
-        "OVRServiceLauncher.exe",
-        # ubisoft
-        "upc.exe",
-        "UplayWebCore.exe",
-        "UbisoftGameLauncher.exe",
-        "UbisoftGameLauncher64.exe",
-        # other
-        "Agent.exe",
-        "Battle.net.exe",
-        "EpicWebHelper.exe",
-        "EpicGamesLauncher.exe",
-        "BsgLauncher.exe",
-        "EADesktop.exe",
-        "EABackgroundService.exe",
-    ]
-    #####################
-    #       TODO        #
-    #####################
+    """
+    get processes from master list on github
+    """
+    os.system("cls")
+    url = "https://raw.githubusercontent.com/ezedlund/ElisUtilBox/main/process_master_list.txt"
+    processes = []
+    resp = requests.get(url)
+    data = resp.text
+    # print msg
+    print(f"{Gr}startup~# ")
+    # save each line if it doesnt contain a '#'
+    for line in enumerate(data.split("\n")):
+        if not "#" in line:
+            os.system("cls")
+            print(f"{Gr}startup~# loading processes [{line[0]}]")
+        time.sleep(0.01)
+    os.system("cls")
+    print(f"{Gr}startup~# finished [{line[0]}]")
+    time.sleep(1.5)
     return processes
 
 
@@ -136,9 +104,9 @@ def kill_process(process_name):
         )
         _out, err = p.communicate()
         if "ERROR" in str(err, "utf-8"):
-            print(f"{Cy}@result~# {Ye}{process_name} was not killed...{Wh}")
+            print(f"{Cy}@process_killer~# {Ye}{process_name} was not killed...{Wh}")
         else:
-            print(f"{Cy}@result~# {Gr}{process_name} was killed...{Wh}")
+            print(f"{Cy}@process_killer~# {Gr}{process_name} was killed...{Wh}")
     except Exception as err:
         print(f"{Re}Error: {err}{Wh}")
 
@@ -155,7 +123,9 @@ def process_killer(process_list):
 
 
 def print_credits():
-    """Print credits"""
+    """
+    Print credits
+    """
     # setup
     cred_strings = [
         r"      ___           ___              ",
@@ -169,27 +139,26 @@ def print_credits():
         r"   \  \:\_\/     \  \:\    \  \:\     ",
         r"    \  \:\        \  \:\    \__\/     ",
         r"     \__\/         \__\/     ",
-        "",
+        f"Version: {VERSION}",
         "Created by: Eli",
         "aka 3li",
         "https://github.com/ezedlund",
-        f"# USE AT YOUR OWN RISK {get_username().upper()}#",
+        f"# USE AT YOUR OWN RISK {get_username().upper()} #",
     ]
     # print
     for line in cred_strings:
         # randomly color line
         random_num = random.uniform(0.1, 0.2)
         if random_num > 0.19:
-            print(f"{Cy}{line}{Wh}")
-        elif random_num > 0.18:
-            print(f"{Mage}{line}{Wh}")
+            print(f"{Re}{line}{Wh}")
         elif random_num > 0.17:
-            print(f"{Ye}{line}{Wh}")
+            print(f"{Mage}{line}{Wh}")
+        elif random_num > 0.14:
+            print(f"{Cy}{line}{Wh}")
         else:
             print(f"{Gr}{line}{Wh}")
-        # randomly sleep sometime between 0.1 and 0.3
-        sleep(random.uniform(0.1, 0.3))
-    sleep(1)
+        time.sleep(0.14)
+    time.sleep(1)
 
 
 def print_menu_msg():
@@ -212,9 +181,10 @@ def print_menu_msg():
              / __  | / __ \  | |/_/
             / /_/ / / /_/ / _>  <
            /_____/  \____/ /_/|_|{Wh}
-   {Gr}{space_text('created by: Eli')}{Wh}
-   {Gr}{space_text('not for public use')}{Wh}
-   {Gr}{space_text('enjoy your stay, ')}{Ye}{space_text(username)}{Wh}
+            {Gr}{space_text(VERSION)}{Wh}
+        {Gr}{space_text('created by: Eli')}{Wh}
+        {Gr}{space_text('not for public use')}{Wh}
+        {Gr}{space_text('enjoy your stay, ')}{Ye}{space_text(username)}{Wh}
         """
     )
 
@@ -228,11 +198,11 @@ def IP_lookup():
         # get ip input
         ip = input(f"{Wh}\n enter IP :{Gr}")
         os.system("cls")
-        print(space_text(f"getting info for you {username}..."))
+        print(space_text(f"{Gr}getting info for you, {Ye}{username}{Gr}...{Wh}"))
         # use ipwho.is api for ip lookup
         req_api = requests.get(f"http://ipwho.is/{ip}")
         ip_data = json.loads(req_api.text)
-        sleep(1)
+        time.sleep(1)
         # print ip info
         print(f"{Wh}============= {Gr}       IP INFO       {Wh}=============")
         print(f"{Wh}\n IP              :{Gr}", ip)
@@ -256,7 +226,7 @@ def IP_lookup():
     except:
         os.system("cls")
         print(space_text("error bad IP..."))
-        sleep(0.8)
+        time.sleep(0.8)
 
 
 if __name__ == "__main__":
@@ -271,12 +241,11 @@ if __name__ == "__main__":
     # starting menu message
     os.system("cls")
     print_menu_msg()
-    last_choice = "..."
     # menu loop
     while True:
         # menu setup
         menu_input = inquirer.select(
-            message=f"@EUB~#  ?{last_choice}",
+            message=f"@EUB~# ",
             choices=[
                 "[ 1 ] clean tasks",
                 "[ 2 ] ip lookup",
@@ -296,7 +265,7 @@ if __name__ == "__main__":
             #       TODO        #
             #####################
             print(f"{Re}COMING SOON...{Wh}")
-            sleep(0.5)
+            time.sleep(0.5)
             pass
         elif "[ 4 ]" in str(menu_input):
             os.system("cls")
@@ -304,6 +273,4 @@ if __name__ == "__main__":
         else:
             os.system("cls")
             break
-        # remember last choice for next loop
-        last_choice = str(menu_input[6:])
     input(f"{Gr}thanks for using me\n{Re}press [enter] to exit...{Wh}")
