@@ -5,6 +5,7 @@ yourphoneserver.exe
 yourphone.exe
 mysqld.exe
 msedge.exe
+ai.exe
 # xbox
 xboxappservices.exe
 gamebarpresencewriter.exe
@@ -28,11 +29,14 @@ AdobeIPCBroker.exe
 Adobe Desktop Service.exe
 Adobe Crash Processor.exe
 AdobeUpdateService.exe
+Creative Cloud.exe
+Creative Cloud UI Helper.exe
 # oculos
 OculusClient.exe
 OVRRedir.exe
 OVRServer_x64.exe
 OVRServiceLauncher.exe
+fixer.exe
 # ubisoft
 upc.exe
 UplayWebCore.exe
