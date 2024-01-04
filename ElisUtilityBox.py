@@ -15,19 +15,22 @@ https://github.com/ezedlund/
 
 
 import os
+import sys
 import subprocess
 import time
 import requests
 import json
 import random
+import ctypes
 
 from InquirerPy import inquirer
 
 
-VERSION = "EUB v1.1.1"
+VERSION = "EUB v1.2"
 """
 v1.0 12/29/2023 'the initial'
 v1.1 01/04/2024 'the master list update'
+v1.2 01/04/2024 'the admin attempt update'
 """
 
 # color codes
@@ -180,11 +183,12 @@ def print_menu_msg():
               / __ )  ____    _  __
              / __  | / __ \  | |/_/
             / /_/ / / /_/ / _>  <
-           /_____/  \____/ /_/|_|{Wh}
-              {Gr}{space_text(VERSION)}{Wh}
+           /_____/  \____/ /_/|_|          {Gr}{VERSION}{Wh}
+
      {Gr}{space_text('created by: Eli')}{Wh}
      {Gr}{space_text('not for public use')}{Wh}
      {Gr}{space_text('enjoy your stay, ')}{Ye}{space_text(username)}{Wh}
+     
         """
     )
 
@@ -230,6 +234,12 @@ def IP_lookup():
 
 
 if __name__ == "__main__":
+    # Check admin
+    if not ctypes.windll.shell32.IsUserAnAdmin():
+        # re-launch as admin
+        ctypes.windll.shell32.ShellExecuteW(
+            None, "runas", sys.executable, "".join(sys.argv), None, 1
+        )
     os.system("cls")
     username = get_username()
     print_credits()
