@@ -1,0 +1,48 @@
+# windows
+CompatTelRunner.exe
+PhoneExperienceHost.exe
+yourphoneserver.exe
+yourphone.exe
+mysqld.exe
+msedge.exe
+# xbox
+xboxappservices.exe
+gamebarpresencewriter.exe
+gamebarftserver.exe
+gamebar.exe
+xboxapp.exe
+XboxIdp.exe
+XboxPCApp.exe
+gamingservices.exe
+gamingservicesnet.exe
+gameinputsvc.exe
+mysqld.exe
+XboxPcAppFT.exe
+XboxGameBarWidgets.exe
+# adobe
+CoreSync.exe
+CCXProcess.exe
+CCLibrary.exe
+AdobeNotificationClient.exe
+AdobeIPCBroker.exe
+Adobe Desktop Service.exe
+Adobe Crash Processor.exe
+AdobeUpdateService.exe
+# oculos
+OculusClient.exe
+OVRRedir.exe
+OVRServer_x64.exe
+OVRServiceLauncher.exe
+# ubisoft
+upc.exe
+UplayWebCore.exe
+UbisoftGameLauncher.exe
+UbisoftGameLauncher64.exe
+# other
+Agent.exe
+Battle.net.exe
+EpicWebHelper.exe
+EpicGamesLauncher.exe
+BsgLauncher.exe
+EADesktop.exe
+EABackgroundService.exe
