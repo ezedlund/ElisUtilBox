@@ -24,7 +24,7 @@ import random
 from InquirerPy import inquirer
 
 
-VERSION = "EUB v1.1"
+VERSION = "EUB v1.1.1"
 """
 v1.0 12/29/2023 'the initial'
 v1.1 01/04/2024 'the master list update'
@@ -85,6 +85,7 @@ def processes_setup():
         os.system("cls")
         if not "#" in line:
             print(f"{Gr}startup~# loading processes [{line[0]}]")
+            processes.append(line)
         time.sleep(0.01)
     os.system("cls")
     print(f"{Gr}startup~# finished [{line[0]}]")
@@ -181,10 +182,10 @@ def print_menu_msg():
              / __  | / __ \  | |/_/
             / /_/ / / /_/ / _>  <
            /_____/  \____/ /_/|_|{Wh}
-            {Gr}{space_text(VERSION)}{Wh}
-        {Gr}{space_text('created by: Eli')}{Wh}
-        {Gr}{space_text('not for public use')}{Wh}
-        {Gr}{space_text('enjoy your stay, ')}{Ye}{space_text(username)}{Wh}
+              {Gr}{space_text(VERSION)}{Wh}
+     {Gr}{space_text('created by: Eli')}{Wh}
+     {Gr}{space_text('not for public use')}{Wh}
+     {Gr}{space_text('enjoy your stay, ')}{Ye}{space_text(username)}{Wh}
         """
     )
 
