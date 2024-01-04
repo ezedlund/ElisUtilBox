@@ -80,12 +80,11 @@ def processes_setup():
     data = resp.text
     # print msg
     print(f"{Gr}startup~# ")
-    # save each line if it doesnt contain a '#'
+    # save each line
     for line in enumerate(data.split("\n")):
         os.system("cls")
-        if not "#" in line:
-            print(f"{Gr}startup~# loading processes [{line[0]}]")
-            processes.append(line[1])
+        print(f"{Gr}startup~# loading processes [{line[0]}]")
+        processes.append(line[1])
         time.sleep(0.01)
     os.system("cls")
     print(f"{Gr}startup~# finished [{line[0]}]")
