@@ -22,15 +22,17 @@ import requests
 import json
 import random
 import ctypes
+import platform
 
 from InquirerPy import inquirer
 
 
-VERSION = "EUB v1.2"
+VERSION = "EUB v1.3"
 """
 v1.0 12/29/2023 'the initial'
 v1.1 01/04/2024 'the master list update'
 v1.2 01/04/2024 'the admin attempt update'
+v1.3 01/05/2024 'the os update'
 """
 
 # color codes
@@ -50,6 +52,45 @@ kill_steam = False
 
 # random seed
 random.seed(version=2)
+
+
+def os_check():
+    """
+    check os type
+    """
+    os.system("cls")
+    # check if windows
+    print(f"{Cy} startup~# {Ye}checking os type{Wh}")
+    time.sleep(0.4)
+    user_sys = platform.system()
+    # if not windows then quit
+    if not user_sys == "Windows":
+        print(f"{Cy} startup~# {Re}THIS IF FOR WINDOWS ONLY...{Wh}")
+        input("press [enter] to exit")
+        exit()
+    # continue
+    print(f"{Cy} startup~# {Gr}you are using {Mage}{user_sys}{Wh}")
+    time.sleep(1)
+    os.system("cls")
+    # check windows version
+    print(f"{Cy} startup~# {Ye}checking Windows version{Wh}")
+    time.sleep(0.4)
+    user_sys_vers = platform.release()
+    # user is using <11 warn
+    if not str(user_sys_vers) == "11":
+        print(
+            f"{Cy} startup~# {Re}you are using Windows{user_sys_vers}. This is for Windows11. You may continue to keep using the program but you may encounter unexpected behavior...{Wh}"
+        )
+        usr_input = input(
+            "press [enter] to exit or type 'exit' and then press [enter] to quit"
+        ).lower()
+        if usr_input == "exit":
+            quit()
+    # continue
+    print(f"{Cy} startup~# {Gr}you are using {Mage}{user_sys} {user_sys_vers}{Wh}")
+    time.sleep(1)
+    # finish
+    time.sleep(0.3)
 
 
 def space_text(text):
@@ -86,12 +127,12 @@ def processes_setup():
     # save each line
     for line in enumerate(data.split("\n")):
         os.system("cls")
-        print(f"{Gr}startup~# loading processes [{line[0]}]")
+        print(f"{Cy} startup~# {Ye}loading processes [{line[0]}]")
         processes.append(line[1])
         time.sleep(0.01)
     os.system("cls")
-    print(f"{Gr}startup~# finished [{line[0]}]")
-    time.sleep(1.5)
+    print(f"{Cy} startup~# {Gr}finished [{line[0]}]")
+    time.sleep(1)
     return processes
 
 
@@ -243,11 +284,9 @@ if __name__ == "__main__":
     os.system("cls")
     username = get_username()
     print_credits()
-    #####################
-    #       TODO        #
-    #####################
-    # loading sequenece #
+    # loading sequeneces #
     process_list = processes_setup()
+    os_check()
     # starting menu message
     os.system("cls")
     print_menu_msg()
