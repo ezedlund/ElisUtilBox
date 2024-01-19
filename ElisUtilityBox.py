@@ -27,7 +27,7 @@ import platform
 from InquirerPy import inquirer
 
 
-VERSION = "EUB v1.3"
+VERSION = "EUB v1.4"
 """
 v1.0 12/29/2023 'the initial'
 v1.1 01/04/2024 'the master list update'
