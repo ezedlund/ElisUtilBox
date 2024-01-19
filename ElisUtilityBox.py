@@ -33,6 +33,7 @@ v1.0 12/29/2023 'the initial'
 v1.1 01/04/2024 'the master list update'
 v1.2 01/04/2024 'the admin attempt update'
 v1.3 01/05/2024 'the os update'
+v1.4 01/10/2024 'the formatting update'
 """
 
 # color codes
@@ -60,8 +61,8 @@ def os_check():
     """
     os.system("cls")
     # check if windows
-    print(f"{Cy} startup~# {Ye}checking os type{Wh}")
-    time.sleep(0.4)
+    print(f"{Cy} startup~# {Ye}checking os type...{Wh}")
+    time.sleep(0.1)
     user_sys = platform.system()
     # if not windows then quit
     if not user_sys == "Windows":
@@ -69,28 +70,24 @@ def os_check():
         input("press [enter] to exit")
         exit()
     # continue
-    print(f"{Cy} startup~# {Gr}you are using {Mage}{user_sys}{Wh}")
-    time.sleep(1)
-    os.system("cls")
+    print(f"{Cy} startup~# {Ye}found os type {Gr}[{user_sys}]{Wh}")
+    time.sleep(0.6)
     # check windows version
-    print(f"{Cy} startup~# {Ye}checking Windows version{Wh}")
-    time.sleep(0.4)
+    print(f"{Cy} startup~# {Ye}checking Windows version...{Wh}")
+    time.sleep(0.1)
     user_sys_vers = platform.release()
     # user is using <11 warn
     if not str(user_sys_vers) == "11":
-        print(
-            f"{Cy} startup~# {Re}you are using Windows{user_sys_vers}. This is for Windows11. You may continue to keep using the program but you may encounter unexpected behavior...{Wh}"
-        )
+        print(f"{Cy} startup~# {Ye}found Windows version {Gr}[{user_sys_vers}]{Wh}")
         usr_input = input(
             "press [enter] to exit or type 'exit' and then press [enter] to quit"
         ).lower()
         if usr_input == "exit":
             quit()
-    # continue
-    print(f"{Cy} startup~# {Gr}you are using {Mage}{user_sys} {user_sys_vers}{Wh}")
-    time.sleep(1)
-    # finish
-    time.sleep(0.3)
+    else:
+        # continue
+        print(f"{Cy} startup~# {Ye}found Windows version {Gr}[{user_sys_vers}]{Wh}")
+    time.sleep(0.6)
 
 
 def space_text(text):
@@ -132,7 +129,7 @@ def processes_setup():
         time.sleep(0.01)
     os.system("cls")
     print(f"{Cy} startup~# {Gr}finished [{line[0]}]")
-    time.sleep(1)
+    time.sleep(0.5)
     return processes
 
 
@@ -201,8 +198,8 @@ def print_credits():
             print(f"{Cy}{line}{Wh}")
         else:
             print(f"{Gr}{line}{Wh}")
-        time.sleep(0.14)
-    time.sleep(1)
+        time.sleep(0.1)
+    time.sleep(0.7)
 
 
 def print_menu_msg():
@@ -241,9 +238,9 @@ def IP_lookup():
     os.system("cls")
     try:
         # get ip input
-        ip = input(f"{Wh}\n enter IP :{Gr}")
+        ip = input(f"{Wh}\n enter IP: {Gr}")
         os.system("cls")
-        print(space_text(f"{Gr}getting info for you, {Ye}{username}{Gr}...{Wh}"))
+        print(f"{Gr}getting info for you, {Ye}{username}{Gr}...{Wh}")
         # use ipwho.is api for ip lookup
         req_api = requests.get(f"http://ipwho.is/{ip}")
         ip_data = json.loads(req_api.text)
@@ -271,7 +268,10 @@ def IP_lookup():
     except:
         os.system("cls")
         print(space_text("error bad IP..."))
+    finally:
         time.sleep(0.8)
+        input(f"{Gr}press [enter] to continue...{Wh}")
+        os.system("cls")
 
 
 if __name__ == "__main__":
@@ -279,7 +279,7 @@ if __name__ == "__main__":
     if not ctypes.windll.shell32.IsUserAnAdmin():
         # re-launch as admin
         ctypes.windll.shell32.ShellExecuteW(
-            None, "runas", sys.executable, "".join(sys.argv), None, 1
+            None, "runas", sys.executable, "".join(sys.argv), None, 0
         )
     os.system("cls")
     username = get_username()
