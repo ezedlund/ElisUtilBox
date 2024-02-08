@@ -31,6 +31,7 @@ Adobe Crash Processor.exe
 AdobeUpdateService.exe
 Creative Cloud.exe
 Creative Cloud UI Helper.exe
+AdobeUpdateService.exe
 # oculos
 OculusClient.exe
 OVRRedir.exe

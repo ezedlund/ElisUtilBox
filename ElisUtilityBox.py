@@ -13,7 +13,6 @@ https://github.com/ezedlund/
 # EDUCATIONAL USE ONLY #
 """
 
-
 import os
 import sys
 import subprocess
@@ -25,15 +24,24 @@ import ctypes
 import platform
 
 from InquirerPy import inquirer
+import pyuac
 
 
-VERSION = "EUB v1.4"
+VERSION = "EUB v1.6"
 """
 v1.0 12/29/2023 'the initial'
 v1.1 01/04/2024 'the master list update'
 v1.2 01/04/2024 'the admin attempt update'
 v1.3 01/05/2024 'the os update'
 v1.4 01/10/2024 'the formatting update'
+v1.5 01/11/2024 'the pyuac update'
+v1.6 02/07/2024 'the speed update'
+
+
+
+v2 ??/??/2024 'the 2.0 update'
+* update script from github 
+*  
 """
 
 # color codes
@@ -70,7 +78,8 @@ def os_check():
         input("press [enter] to exit")
         exit()
     # continue
-    print(f"{Cy} startup~# {Ye}found os type {Gr}[{user_sys}]{Wh}")
+    os.system("cls")
+    print(f"{Cy} startup~# {Gr}found os type [{user_sys}]{Wh}")
     time.sleep(0.6)
     # check windows version
     print(f"{Cy} startup~# {Ye}checking Windows version...{Wh}")
@@ -78,15 +87,18 @@ def os_check():
     user_sys_vers = platform.release()
     # user is using <11 warn
     if not str(user_sys_vers) == "11":
-        print(f"{Cy} startup~# {Ye}found Windows version {Gr}[{user_sys_vers}]{Wh}")
+        os.system("cls")
+        print(f"{Cy} startup~# {Gr}found Windows version [{user_sys_vers}]{Wh}")
         usr_input = input(
             "press [enter] to exit or type 'exit' and then press [enter] to quit"
         ).lower()
         if usr_input == "exit":
             quit()
+    # user is using 11
     else:
-        # continue
-        print(f"{Cy} startup~# {Ye}found Windows version {Gr}[{user_sys_vers}]{Wh}")
+        os.system("cls")
+        print(f"{Cy} startup~# {Gr}found Windows version [{user_sys_vers}]{Wh}")
+    # continue
     time.sleep(0.6)
 
 
@@ -274,52 +286,80 @@ def IP_lookup():
         os.system("cls")
 
 
+def back_menu() -> bool:
+    """
+    generice back or exit menu when finished with task
+    returns
+    True if "[ 1 ] back" selected
+    False if "[ 2 ] exit" selected
+    """
+    # setup menu
+    menu_input = inquirer.select(
+        message=f"@EUB~# finished",
+        choices=[
+            "[ 1 ] back",
+            "[ 2 ] exit",
+        ],
+    ).execute()
+    return True if "[ 1 ]" in str(menu_input) else False
+
+
 if __name__ == "__main__":
-    # Check admin
+    """
     if not ctypes.windll.shell32.IsUserAnAdmin():
         # re-launch as admin
         ctypes.windll.shell32.ShellExecuteW(
-            None, "runas", sys.executable, "".join(sys.argv), None, 0
+            None, "runas", sys.executable, " ".join(sys.argv), None, 1
         )
-    os.system("cls")
-    username = get_username()
-    print_credits()
-    # loading sequeneces #
-    process_list = processes_setup()
-    os_check()
-    # starting menu message
-    os.system("cls")
-    print_menu_msg()
-    # menu loop
-    while True:
-        # menu setup
-        menu_input = inquirer.select(
-            message=f"@EUB~# ",
-            choices=[
-                "[ 1 ] clean tasks",
-                "[ 2 ] ip lookup",
-                "[ 3 ] options",
-                "[ 4 ] clear screen",
-                "[ 0 ] exit",
-            ],
-        ).execute()
-        # options
-        if "[ 1 ]" in str(menu_input):
-            process_killer(process_list)
-        elif "[ 2 ]" in str(menu_input):
-            IP_lookup()
-            pass
-        elif "[ 3 ]" in str(menu_input):
-            #####################
-            #       TODO        #
-            #####################
-            print(f"{Re}COMING SOON...{Wh}")
-            time.sleep(0.5)
-            pass
-        elif "[ 4 ]" in str(menu_input):
-            os.system("cls")
+    """
+    # Check admin
+    if not pyuac.isUserAdmin():
+        print(f"{Ye}trying to gain admin...{Wh}")
+        pyuac.runAsAdmin()
+    else:
+        os.system("cls")
+        username = get_username()
+        print_credits()
+        # loading sequeneces #
+        process_list = processes_setup()
+        os_check()
+        # starting menu message
+        os.system("cls")
+
+        # menu loop
+        while True:
             print_menu_msg()
-        else:
+            # menu setup
+            menu_input = inquirer.select(
+                message=f"@EUB~# ",
+                choices=[
+                    "[ 1 ] clean tasks",
+                    "[ 2 ] ip lookup",
+                    "[ 3 ] options",
+                    "[ 4 ] clear screen",
+                    "[ 0 ] exit",
+                ],
+            ).execute()
+            # options
+            if "[ 1 ]" in str(menu_input):
+                process_killer(process_list)
+                if not back_menu():
+                    break
+            elif "[ 2 ]" in str(menu_input):
+                IP_lookup()
+                pass
+            elif "[ 3 ]" in str(menu_input):
+                #####################
+                #       TODO        #
+                #####################
+                print(f"{Re}COMING SOON...{Wh}")
+                time.sleep(0.5)
+                pass
+            elif "[ 4 ]" in str(menu_input):
+                print_menu_msg()
+            else:
+                break
             os.system("cls")
-            break
-    input(f"{Gr}thanks for using me\n{Re}press [enter] to exit...{Wh}")
+        os.system("cls")
+        print(f"{Gr}thanks for using me\n{Wh}")
+        time.sleep(0.9)
